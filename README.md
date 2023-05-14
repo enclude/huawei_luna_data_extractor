@@ -116,7 +116,9 @@ huawei-solar:
     storage_unit_1_battery_pack_2_voltage numeric,
     storage_unit_1_battery_pack_2_current numeric,
     storage_unit_1_battery_pack_2_state_of_capacity numeric,
-    storage_unit_1_battery_temperature numeric);
+    storage_unit_1_battery_temperature numeric,
+	accumulated_yield_energy numeric
+,);
 ```
 
 ## Współpraca z Supla Device
