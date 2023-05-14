@@ -40,7 +40,8 @@ huawei-solar:
  
  ## Współpraca z PSQL
  Tworzenie tabeli (musi być zgodna ze zmienną DB_TABLE; zamienić wartość `public.converter` na `public.DB_TABLE`):
- ```CREATE TABLE public.inverter (
+ ```
+ CREATE TABLE public.inverter (
     "timestamp" timestamp with time zone DEFAULT clock_timestamp() NOT NULL,
     id bigint NOT NULL,
     pv_01_voltage numeric NOT NULL,
