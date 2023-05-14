@@ -54,6 +54,7 @@ def modbusAccess():
         
         with open("huawei.json", "w") as outfile:
             json.dump(reads, outfile)
+            log.debug("JSON dump completed")
         if ifPSQL:
             sql = "INSERT INTO " + db_table + " ("
             cur = sql_connection.cursor()
@@ -73,7 +74,7 @@ def modbusAccess():
                 else:
                     sql = sql + ", '" + reads[i] +"'"
             sql = sql + ");"
-            print(sql)
+            log.debug(sql)
 
             cur.execute(sql)
             sql_connection.commit()
