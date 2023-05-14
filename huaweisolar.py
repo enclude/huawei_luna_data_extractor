@@ -28,7 +28,7 @@ if ifPSQL:
     db_name = os.getenv('DB_NAME')
     db_user = os.getenv('DB_USER')
     db_pass = os.getenv('DB_PASS')
-    db_table = os.getenv('DB_TABLE')
+    db_table = os.getenv('DB_TABLE', 'inverter')
     sql_connection = psycopg2.connect(dbname=db_name, user=db_user, password=db_pass, host=db_server)
 
 inverter = huawei_solar.HuaweiSolar(inverter_ip, port=502, slave=1)
