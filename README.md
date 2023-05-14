@@ -136,16 +136,19 @@ Przykład konfiguracyjny dla tego kanału gdy podłączony jest licznik energii 
       - voltage: grid_A_voltage
       - current: active_grid_A_current
       - power_active: active_grid_A_power
+        multipler: -1
     phase_3:
       - voltage: grid_C_voltage
       - current: active_grid_C_current
       - power_active: active_grid_C_power
+        multipler: -1
       - fwd_act_energy: grid_accumulated_energy
       - rvr_act_energy: grid_exported_energy
     phase_2:
       - voltage: grid_B_voltage
       - current: active_grid_B_current
       - power_active: active_grid_B_power
+        multipler: -1
 
 ```
 
