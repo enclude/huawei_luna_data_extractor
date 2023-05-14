@@ -18,7 +18,7 @@ W swoim dockerze zaimportuj obraz: enclude/huawei_luna_data_extractor:latest
 Sklonuj to repozytorium oraz zbuduj obraz dockera za pomocą komendy:
 `docker build -t huawei-solar .` 
 
-Przed uruchomieniem możesz wyedytować tablę "vars" w celu dostosowania zmiennych do swojego falwonika (usunąć dane dotyczące magazynu, czy dodać dodatkowe stringi).
+Przed uruchomieniem możesz wyedytować tabelę "vars" w celu dostosowania zmiennych do swojego falownika (usunąć dane dotyczące magazynu, czy dodać dodatkowe stringi).
 
 Po prawidłowym zbudowaniu obrazu możesz użyć w ramach docker-compose. MQTT i PSQL przyjmują wartości "True" albo "False". True dla korzystania z tej opcji, False dla wyłączenia. 
 ```
@@ -121,7 +121,7 @@ huawei-solar:
 
 ## Współpraca z Supla Device
 Plik JSON można użyć w https://github.com/SUPLA/supla-device/blob/main/extras/examples/linux/README.md jako kanał "ElectricityMeterParsed". 
-Przykład konfiguracyjny dla tego kanału gdy podłączony jest liczni energii elektrycznej
+Przykład konfiguracyjny dla tego kanału gdy podłączony jest licznik energii elektrycznej
 ```
   - type: ElectricityMeterParsed
     parser:
