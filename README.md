@@ -1,1 +1,1 @@
-# huawei_luna_data_extractor
+# Łącznik do wyodrębniania danych z falownika Huawei SUN2000-KTL
