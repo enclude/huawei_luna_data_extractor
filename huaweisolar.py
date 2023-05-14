@@ -15,16 +15,21 @@ log.setLevel(logging.INFO)
 
 
 inverter_ip = os.getenv('INVERTER_IP')
-mqtt_host = os.getenv('MQTT_HOST')
 
-db_server = os.getenv('DB_SERVER')
-db_name = os.getenv('DB_NAME')
-db_user = os.getenv('DB_USER')
-db_pass = os.getenv('DB_PASS')
+ifMQTT = os.getenv('MQTT')
+if ifMQTT:
+    mqtt_host = os.getenv('MQTT_HOST')
+    paho.mqtt.client.Client.connected_flag=False #create flag in class
+    broker_port = 1883
 
-# SQL
-# Definiowanie połączenia SQL
-sql_connection = psycopg2.connect(dbname=db_name, user=db_user, password=db_pass, host=db_server)
+ifPSQL = os.getenc('PSQL')
+if ifPSQL:
+    db_server = os.getenv('DB_SERVER')
+    db_name = os.getenv('DB_NAME')
+    db_user = os.getenv('DB_USER')
+    db_pass = os.getenv('DB_PASS')
+    db_table = os.getenv('DB_TABLE')
+    sql_connection = psycopg2.connect(dbname=db_name, user=db_user, password=db_pass, host=db_server)
 
 inverter = huawei_solar.HuaweiSolar(inverter_ip, port=502, slave=1)
 inverter._slave = 1
@@ -50,7 +55,7 @@ def modbusAccess():
         with open("huawei.json", "w") as outfile:
             json.dump(reads, outfile)
 
-        sql = "INSERT INTO TA2260010724 ("
+        sql = "INSERT INTO " + db_table + " ("
         cur = sql_connection.cursor()
 
         j = 0
@@ -85,9 +90,6 @@ def on_connect(client, userdata, flags, rc):
     else:
         log.info("MQTT FAILURE. ERROR CODE: %s",rc)
 
-paho.mqtt.client.Client.connected_flag=False #create flag in class
-broker_port = 1883
-
 clientMQTT = paho.mqtt.client.Client()
 clientMQTT.on_connect=on_connect #bind call back function
 clientMQTT.loop_start()
@@ -97,8 +99,9 @@ clientMQTT.connect(mqtt_host, broker_port) #connect to broker
 while not clientMQTT.connected_flag: #wait in loop
     log.info("...")
 time.sleep(0.5)
-log.info("START MODBUS...")
 
+
+log.info("START MODBUS...")
 modbusAccess()
 
 clientMQTT.loop_stop()
