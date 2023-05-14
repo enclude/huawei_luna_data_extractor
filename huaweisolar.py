@@ -16,13 +16,13 @@ log.setLevel(logging.INFO)
 
 inverter_ip = os.getenv('INVERTER_IP')
 
-ifMQTT = os.getenv('MQTT')
+ifMQTT = os.getenv('MQTT', 'False')
 if ifMQTT:
     mqtt_host = os.getenv('MQTT_HOST')
     paho.mqtt.client.Client.connected_flag=False #create flag in class
     broker_port = 1883
 
-ifPSQL = os.getenc('PSQL')
+ifPSQL = os.getenc('PSQL', 'False')
 if ifPSQL:
     db_server = os.getenv('DB_SERVER')
     db_name = os.getenv('DB_NAME')
@@ -45,41 +45,38 @@ def modbusAccess():
         for i in vars:
             try:
                 mid = inverter.get(i)
-
-                clientMQTT.publish(topic="emon/NodeHuawei/"+i, payload= str(mid.value), qos=1, retain=False)
+                if ifMQTT:
+                    clientMQTT.publish(topic="emon/NodeHuawei/"+i, payload= str(mid.value), qos=1, retain=False)
                 reads[i] = str(mid.value)
 
             except:
                 pass
-
+        
         with open("huawei.json", "w") as outfile:
             json.dump(reads, outfile)
+        if ifPSQL:
+            sql = "INSERT INTO " + db_table + " ("
+            cur = sql_connection.cursor()
+            j = 0
+            for i in reads:
+                if j == 0:
+                    sql = sql + i
+                    j = j + 1
+                else:
+                    sql = sql + ", " + i
+            sql = sql + ") VALUES ("
+            j = 0
+            for i in reads:
+                if j == 0:
+                    sql = sql + "'" + reads[i] +"'"
+                    j = j + 1
+                else:
+                    sql = sql + ", '" + reads[i] +"'"
+            sql = sql + ");"
+            print(sql)
 
-        sql = "INSERT INTO " + db_table + " ("
-        cur = sql_connection.cursor()
-
-        j = 0
-        for i in reads:
-            if j == 0:
-                sql = sql + i
-                j = j + 1
-            else:
-                sql = sql + ", " + i
-
-        sql = sql + ") VALUES ("
-
-        j = 0
-        for i in reads:
-            if j == 0:
-                sql = sql + "'" + reads[i] +"'"
-                j = j + 1
-            else:
-                sql = sql + ", '" + reads[i] +"'"
-        sql = sql + ");"
-        print(sql)
-
-        cur.execute(sql)
-        sql_connection.commit()
+            cur.execute(sql)
+            sql_connection.commit()
 
         time.sleep(0.15)
 
@@ -90,18 +87,20 @@ def on_connect(client, userdata, flags, rc):
     else:
         log.info("MQTT FAILURE. ERROR CODE: %s",rc)
 
-clientMQTT = paho.mqtt.client.Client()
-clientMQTT.on_connect=on_connect #bind call back function
-clientMQTT.loop_start()
-log.info("Connecting to MQTT broker: %s ",mqtt_host)
-clientMQTT.username_pw_set(username="",password="")
-clientMQTT.connect(mqtt_host, broker_port) #connect to broker
-while not clientMQTT.connected_flag: #wait in loop
-    log.info("...")
-time.sleep(0.5)
+if ifMQTT:
+    clientMQTT = paho.mqtt.client.Client()
+    clientMQTT.on_connect=on_connect #bind call back function
+    clientMQTT.loop_start()
+    log.info("Connecting to MQTT broker: %s ",mqtt_host)
+    clientMQTT.username_pw_set(username="",password="")
+    clientMQTT.connect(mqtt_host, broker_port) #connect to broker
+    while not clientMQTT.connected_flag: #wait in loop
+        log.info("...")
+    time.sleep(0.5)
 
 
 log.info("START MODBUS...")
 modbusAccess()
 
-clientMQTT.loop_stop()
+if ifMQTT:
+    clientMQTT.loop_stop()
