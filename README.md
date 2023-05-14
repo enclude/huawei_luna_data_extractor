@@ -6,6 +6,7 @@ Możliwość monitorowania inwertera Huawei SUN2000-KTL trójfazowego. Możliwo�
 1. Docker
 2. Opcjonalnie: PSQL
 3. Opcjonalnie: Broker MQTT
+4. Włączony MODBUS TCP - https://forum.huawei.com/enterprise/en/modbus-tcp-guide/thread/789585-100027
 
 ## Aby uruchomić
 Sklonuj to repozytorium oraz zbuduj obraz dockera za pomocą komendy:
