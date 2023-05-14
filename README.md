@@ -32,7 +32,10 @@ huawei-solar:
 ```
  
  ## Współpraca z MQTT
+![Zrzut ekranu z MQTT Explorera](https://raw.githubusercontent.com/enclude/huawei_luna_data_extractor/main/images/mqtt.png)
  
+ ## Prezentacja danych po JSON
+ Po uruchomieniu kontenera dostęny będzie plik: `http://<DOCKER_IP>:8002/huawei.json` z wartościami. Opis wartości znajduje się w pliku "raw/huawei_opis.txt"
  
  ## Współpraca z PSQL
  Tworzenie tabeli (musi być zgodna ze zmienną DB_TABLE; zamienić wartość `public.converter` na `public.DB_TABLE`):
