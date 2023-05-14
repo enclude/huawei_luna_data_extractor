@@ -1,4 +1,4 @@
-# Łącznik do wyodrębniania danych z falownika Huawei SUN2000-KTL z możliwością publikacji w PSQL (PostgreSQL) oraz MQTT
+# Łącznik do wyodrębniania danych z falownika Huawei SUN2000-KTL z możliwością publikacji w PSQL (PostgreSQL), JSON oraz MQTT
 
 Możliwość monitorowania inwertera Huawei SUN2000-KTL trójfazowego. Możliwość przesyłania danych do wskazanego brokera MQTT, bazy danych PSQL oraz wystawia plik JSON z odczytanymi wartościami. 
 
