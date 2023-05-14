@@ -110,6 +110,34 @@ huawei-solar:
 );
 ```
 
+## Współpraca z Supla Device
+Plik JSON można użyć w https://github.com/SUPLA/supla-device jako kanał "ElectricityMeterParsed". 
+Przykład konfiguracyjny dla tego kanału gdy podłączony jest liczni energii elektrycznej
+```
+  - type: ElectricityMeterParsed
+    parser:
+      type: Json
+    source:
+      type: File
+      file: huawei.json
+    frequency: grid_frequency
+    phase_1:
+      - voltage: grid_A_voltage
+      - current: active_grid_A_current
+      - power_active: active_grid_A_power
+    phase_3:
+      - voltage: grid_C_voltage
+      - current: active_grid_C_current
+      - power_active: active_grid_C_power
+      - fwd_act_energy: grid_accumulated_energy
+      - rvr_act_energy: grid_exported_energy
+    phase_2:
+      - voltage: grid_B_voltage
+      - current: active_grid_B_current
+      - power_active: active_grid_B_power
+
+```
+
 ### Bazowane na:
 https://github.com/ccorderor/huawei-sun2000-modbus-mqtt
 
