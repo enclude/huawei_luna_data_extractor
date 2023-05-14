@@ -114,7 +114,7 @@ huawei-solar:
 ```
 
 ## Współpraca z Supla Device
-Plik JSON można użyć w https://github.com/SUPLA/supla-device jako kanał "ElectricityMeterParsed". 
+Plik JSON można użyć w https://github.com/SUPLA/supla-device/blob/main/extras/examples/linux/README.md jako kanał "ElectricityMeterParsed". 
 Przykład konfiguracyjny dla tego kanału gdy podłączony jest liczni energii elektrycznej
 ```
   - type: ElectricityMeterParsed
