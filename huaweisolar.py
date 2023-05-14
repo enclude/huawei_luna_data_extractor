@@ -22,7 +22,7 @@ if ifMQTT:
     paho.mqtt.client.Client.connected_flag=False #create flag in class
     broker_port = 1883
 
-ifPSQL = os.getenc('PSQL', 'False')
+ifPSQL = os.getenv('PSQL', 'False')
 if ifPSQL:
     db_server = os.getenv('DB_SERVER')
     db_name = os.getenv('DB_NAME')
