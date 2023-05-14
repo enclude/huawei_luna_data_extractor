@@ -10,7 +10,9 @@ Możliwość monitorowania inwertera Huawei SUN2000-KTL trójfazowego. Możliwo�
 
 ## Aby uruchomić
 Sklonuj to repozytorium oraz zbuduj obraz dockera za pomocą komendy:
-`docker build -t huawei-solar .`
+`docker build -t huawei-solar .` 
+
+Przed uruchomieniem możesz wyedytować tablę "vars" w celu dostosowania zmiennych do swojego falwonika (usunąć dane dotyczące magazynu, czy dodać dodatkowe stringi).
 
 Po prawidłowym zbudowaniu obrazu możesz użyć w ramach docker-compose. MQTT i PSQL przyjmują wartości "True" albo "False". True dla korzystania z tej opcji, False dla wyłączenia. 
 ```
