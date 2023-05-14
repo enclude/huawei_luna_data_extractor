@@ -9,6 +9,12 @@ Możliwość monitorowania inwertera Huawei SUN2000-KTL trójfazowego. Możliwo�
 4. Włączony MODBUS TCP - https://forum.huawei.com/enterprise/en/modbus-tcp-guide/thread/789585-100027
 
 ## Aby uruchomić
+
+### Łatwiejsza droga:
+W swoim dockerze zaimportuj obraz: enclude/huawei_luna_data_extractor:latest
+
+### Trochę trudniejsza droga:
+
 Sklonuj to repozytorium oraz zbuduj obraz dockera za pomocą komendy:
 `docker build -t huawei-solar .` 
 
